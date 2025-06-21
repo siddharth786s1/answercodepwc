@@ -3,7 +3,7 @@ from invalid_place_exception import InvalidPlaceException
 
 class Tourism:
     def __init__(self):
-        self.passenger_list = []
+        self.passenger_list = []  # public attribute
 
     def get_passenger_list(self):
         return self.passenger_list
@@ -18,7 +18,7 @@ class Tourism:
                 raise InvalidPlaceException("Invalid Place Name")
             return True
         except InvalidPlaceException as e:
-            raise
+            return e
 
     def add_passenger_details(self, passenger_name, place, no_of_days, no_of_tickets):
         passenger = Passenger()
