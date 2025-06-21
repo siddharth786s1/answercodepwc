@@ -8,10 +8,10 @@ for i in range(n):
     details = input(f"Enter the registration details {i+1}:\n").strip()
     try:
         passenger_name, place, no_of_days, no_of_tickets = details.split(":")
-        try:
-            tourism.validate_place_name(place)
-        except InvalidPlaceException:
-            print("Invalid Place Name")
+        validation = tourism.validate_place_name(place)
+        if validation is not True:
+            # validation returned the exception object; print its message
+            print(validation.message)
             continue
         tourism.add_passenger_details(
             passenger_name,
@@ -20,13 +20,13 @@ for i in range(n):
             int(no_of_tickets)
         )
     except Exception:
+        # Any parsing error or type conversion error; skip this record
         continue
 
 search_place = input("Enter the Place that needs to be searched:\n")
-try:
-    tourism.validate_place_name(search_place)
-except InvalidPlaceException:
-    print("Invalid Place Name")
+validation = tourism.validate_place_name(search_place)
+if validation is not True:
+    print(validation.message)
 else:
     matching_passengers = tourism.view_passenger_details(search_place)
     if not matching_passengers:
